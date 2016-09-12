@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_graph_avg"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="top"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"  android:layout_weight="1" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="Date" />
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"  android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textColor="#C83200"
+            android:text="Avg Att" />
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"  android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_att_avg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textColor="#5AFA00"
+            android:text="Avg Med" />
+
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"  android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textColor="#FFFA00"
+            android:text="Minutes" />
+
+        <View android:layout_width="0dp"
+            android:layout_height="1dp"  android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textColor ="#98FB98"
+            android:text="Best Med" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"/>
+
+</LinearLayout>

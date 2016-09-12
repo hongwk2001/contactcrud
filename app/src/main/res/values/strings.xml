@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">Read Repeat</string>
+    <string name="title_activity_main">Read for me, Repeat</string>
+    <string name="title_activity_setting">Setup and help</string>
+    <string name="text2speach">Read Text</string>
+    <string name="auto_text2speach">Auto TTS</string>
+
+
+    <string name="cbx_tts_number">read Counter</string>
+    <string name="cbx_tts_text">read Text</string>
+
+
+    <string name="start">start</string>
+    <string name="pause">pause</string>
+    <string name="new1">New</string>
+    <string name="del">Del</string>
+    <string name="save">Save</string>
+
+    <string name="close">Close</string>
+    <string name="edit">Edit</string>
+    <string name="next">Next</string>
+    <string name="previous">Prev</string>
+
+    <string name="setting">Setting</string>
+
+    <string name="thank">Thank you. namaste</string>
+
+
+</resources>
