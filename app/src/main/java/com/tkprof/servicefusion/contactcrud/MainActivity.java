@@ -247,7 +247,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
             Intent intent = new Intent(this, ContactActivity.class);
             intent.putExtra("id",  _no);
             startActivity(intent);
-        }else{
+        }else {
             return false;
         }
         return true;
