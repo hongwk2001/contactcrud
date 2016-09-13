@@ -62,8 +62,7 @@ public class ContactRecord {
   // Will be used by the ArrayAdapter in the ListView
   @Override
   public String toString() {
-    return _id +
-        first_name
+    return   first_name
 			+" "+ last_name
 			+" "+ zip_code
 			+" "+ zip_code

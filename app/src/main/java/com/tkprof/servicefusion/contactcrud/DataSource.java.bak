@@ -168,12 +168,10 @@ public class DataSource {
   
   private ContactRecord cursorToRow(Cursor cursor) {
 	  ContactRecord newrow = new ContactRecord();
-	  
-	  newrow.setKey (cursor.getKey(0));
-	  newrow.setFirstName (cursor.getString(1));
-	  newrow.setLastName(cursor.getString(2));
-	  newrow.setDateOfBirth(cursor.getString(3));
-	  newrow.setZipCode(cursor.getString(4));
+	  newrow.setFirstName (cursor.getString(0));
+	  newrow.setLastName(cursor.getString(1));
+	  newrow.setDateOfBirth(cursor.getString(2));
+	  newrow.setZipCode(cursor.getString(3));
     return newrow;
   }
 
