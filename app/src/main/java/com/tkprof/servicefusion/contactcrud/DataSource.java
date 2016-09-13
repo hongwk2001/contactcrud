@@ -105,28 +105,25 @@ public class DataSource {
   }
   
   // id as search condition.
-  public List<ContactRecord> getContact(int id ) {
-	    List<ContactRecord> rows = new ArrayList<ContactRecord>();
+  public ContactRecord  getContact(int id ) {
+	ContactRecord row = new ContactRecord();
 
-	    String[] ids = {""+id};
-	    
-	    Cursor cursor = database.rawQuery (
-            "select _no, Pum_no, Phase_no, Text1 " + 
-	           " from content c " +
-	           "where c._no > ? " +
-	           "order by _no" 
-	    		, ids );
+	String[] ids = {""+id};
 
-	    cursor.moveToFirst();
-	    while (!cursor.isAfterLast()) {
-	    	ContactRecord eachrow = cursorToRow(cursor);
-	    	rows.add(eachrow);
-	      cursor.moveToNext();
-	    }
-	    // make sure to close the cursor
-	    cursor.close();
-	    return rows;
-}
+	Cursor cursor = database.rawQuery (
+	"select _no, Pum_no, Phase_no, Text1 " +
+	   " from content c " +
+	   "where c._no = ? " +
+	   "order by _no"
+		, ids );
+
+	cursor.moveToFirst();
+	ContactRecord eachRow = cursorToRow(cursor);
+
+	// make sure to close the cursor
+	cursor.close();
+	return eachRow;
+  }
   
 
   public int getNewlineno(){ 

@@ -16,25 +16,16 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /*
 import com.google.android.gms.ads.AdListener;
@@ -52,18 +43,6 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     private GestureDetectorCompat mDetector;
 
 
-    TextView tv_pum, tv_line_no, tv_Cnt, t_content;
-    Spinner sp_pum;
-
-
-    CheckBox cbx_tts_number, cbx_tts_text;
-    ToggleButton tgb_start;
-    Button b_save, b_edit, b_new;
-
-    //TODO
-    int curr_line_no = 0, curr_pum_no = 0, curr_phase_no = 0;
-    String contents;
-    Map<Integer, String> pums;
     TextToSpeech ttobj;
     Locale locale;
     /**
@@ -71,7 +50,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+int _id;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,17 +58,8 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         setTheme(android.R.style.Theme_Holo_Light);
         setContentView(R.layout.activity_main);
 
-        sharedPref = getSharedPreferences("ReadRepeat", Context.MODE_PRIVATE);
 
-        tv_pum = (TextView) findViewById(R.id.tv_pum);
-        t_content = (TextView) findViewById(R.id.t_content);
-        tv_line_no = (TextView) findViewById(R.id.tv_line_no);
-        tv_Cnt = (TextView) findViewById(R.id.count);
-        cbx_tts_number = (CheckBox) findViewById(R.id.cbx_tts_number);
-        cbx_tts_text = (CheckBox) findViewById(R.id.cbx_tts_text);
-        tgb_start = (ToggleButton) findViewById(R.id.togglebutton);
-        b_edit = (Button) findViewById(R.id.b_edit);
-        b_new = (Button) findViewById(R.id.b_new);
+        sharedPref = getSharedPreferences("ReadRepeat", Context.MODE_PRIVATE);
 
         restorePref();
 
@@ -105,6 +75,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
 
         mDetector = new GestureDetectorCompat(this, this);
         mDetector.setOnDoubleTapListener(this);
+
         if (locale == null) {
             locale = new Locale(datasource.getLocale());
         };
@@ -146,8 +117,6 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     };
 
     String TAG = "MainActivity";
-
-
 
     private static final int SETTING_ACTIVITY = 10;
 
@@ -194,20 +163,19 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         super.onDestroy();
     }
 
-
     private void restorePref() {
-        curr_line_no = sharedPref.getInt("curr_line_no", 0);
+      /*  curr_line_no = sharedPref.getInt("curr_line_no", 0);
         curr_pum_no = sharedPref.getInt("curr_pum_no", 0);
-        curr_phase_no = sharedPref.getInt("curr_phase_no", 0);
+        curr_phase_no = sharedPref.getInt("curr_phase_no", 0);*/
     }
 
     int clickCnt = 0;
 
     private void savePref() {
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("curr_line_no", curr_line_no);
+     /*   editor.putInt("curr_line_no", curr_line_no);
         editor.putInt("curr_pum_no", curr_pum_no);
-        editor.putInt("curr_phase_no", curr_phase_no);
+        editor.putInt("curr_phase_no", curr_phase_no);*/
         editor.commit();
     }
 
@@ -238,13 +206,13 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         AdapterView.AdapterContextMenuInfo acmi =  (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         ContactRecord obj = (ContactRecord) lv.getItemAtPosition(acmi.position);
 
-        Log.d("dailysum. ","position" + acmi.position + " " + obj.getKey());
+        Log.d("MainActivity. ","position" + acmi.position + " " + obj.getKey());
 
         int _no = obj.getKey() ;
         if(item.getTitle()=="delete"){
             Toast.makeText(this, "Code for Delete", Toast.LENGTH_LONG).show();
         }else   if(item.getTitle()=="edit"){
-            Intent intent = new Intent(this, ContactActivity.class);
+            Intent intent = new Intent(this, ContactDetailActivity.class);
             intent.putExtra("id",  _no);
             startActivity(intent);
         }else {
@@ -265,10 +233,11 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         return false;
     }
 
+
     @Override
     public boolean onDoubleTap(MotionEvent e) {
         Log.i("onDouble tap", "tap");
-        ttobj.speak(contents, TextToSpeech.QUEUE_FLUSH, null);
+      //  ttobj.speak(contents, TextToSpeech.QUEUE_FLUSH, null);
         return false;
     }
 
@@ -278,8 +247,6 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     }
 
     static final int SWIPE_MIN_DISTANCE = 120;
-    static final int SWIPE_MAX_OFF_PATH = 250;
-    static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
@@ -311,7 +278,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
                            float velocityY) {
 
         if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-          //  next(tv_pum);
+          //  showContactDetail(tv_pum);
         } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
           //  prev(tv_pum);
         }

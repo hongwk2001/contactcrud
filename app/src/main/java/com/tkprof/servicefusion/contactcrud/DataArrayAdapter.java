@@ -45,11 +45,11 @@ public class DataArrayAdapter extends ArrayAdapter<ContactRecord> {
 
 	    // fill data
 	    ViewHolder holder = (ViewHolder) rowView.getTag();
-	     
-	    	holder.tv_first_name.setText( values.get(position).getFirstName());
-	    	holder.tv_last_name.setText(""+values.get(position).getLastName() );
-	    	holder.tv_date_of_birth.setText(""+values.get(position).getDateOfBirth());
-	    	holder.tv_zip_code.setText(""+values.get(position).getZipCode());
+
+		holder.tv_first_name.setText( values.get(position).getFirstName());
+		holder.tv_last_name.setText(""+values.get(position).getLastName() );
+		holder.tv_date_of_birth.setText(""+values.get(position).getDateOfBirth());
+		holder.tv_zip_code.setText(""+values.get(position).getZipCode());
 	     
 	    return rowView;
 	  }

@@ -1,8 +1,7 @@
 package com.tkprof.servicefusion.contactcrud;
   
 public class ContactRecord {
-
-    private int key = -1;
+	private int key = -1;
 
   private String first_name;
   private String last_name;
@@ -10,7 +9,6 @@ public class ContactRecord {
   private String zip_code;
 
   public ContactRecord(){
-	  
   }
   
   public ContactRecord( String first_name, String last_name,
@@ -20,7 +18,6 @@ public class ContactRecord {
 	  this.date_of_birth= date_of_birth  ;
 	  this.zip_code =  zip_code;
 	 }
-
 
     public int getKey() {
         return key;
