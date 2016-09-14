@@ -67,7 +67,7 @@ public class DataSource {
   }
   
   public void deleteRow(ContactRecord row) {
-    int _no = row.get_id() ;
+    int _no = row.getKey() ;
     Log.i("delete", "Comment deleted with _no: " + _no);
     database.delete(DataBaseHelper.TABLE_CONTACTS, DataBaseHelper.COLUMN_NO
          + " = '" + _no +"'", null);
@@ -169,7 +169,7 @@ public class DataSource {
   private ContactRecord cursorToRow(Cursor cursor) {
 	  ContactRecord newrow = new ContactRecord();
 
-	  newrow.set_id(cursor.getInt(0));
+	  newrow.setKey(cursor.getInt(0));
 	  newrow.setFirstName (cursor.getString(1));
 	  newrow.setLastName(cursor.getString(2));
 	  newrow.setDateOfBirth(cursor.getString(3));
