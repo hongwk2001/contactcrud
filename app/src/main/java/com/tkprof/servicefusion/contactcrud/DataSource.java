@@ -167,8 +167,7 @@ public class DataSource {
 
   
   private ContactRecord cursorToRow(Cursor cursor) {
-	  ContactRecord newrow = new ContactRecord();
-	  
+
 	  newrow.setKey (cursor.getKey(0));
 	  newrow.setFirstName (cursor.getString(1));
 	  newrow.setLastName(cursor.getString(2));
