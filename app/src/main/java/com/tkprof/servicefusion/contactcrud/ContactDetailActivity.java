@@ -182,9 +182,7 @@ public class ContactDetailActivity extends Activity
     CharSequence[] pumNames;
     Integer[] pumkeys;
 
-
 /*
-
     CountDownTimer ct;
     CountDownTimer ct_remain;
     int file_line_cnt;
@@ -214,13 +212,28 @@ public class ContactDetailActivity extends Activity
     String l_insOrupd = "";
 
     //TODO
-    public void onClickSave(String p_insOrupd, String p_text) {
-        datasource.saveLine(_id, p_text, p_insOrupd);
+    public void onClickSave(View view) {
+
+        if (l_insOrupd.equals("Ins")){
+            cur_line_no = LAST_ROW_NO + 1;
+        }
+
+        datasource.insertContact(_id,
+                 e_first_name.getText(), e_last_name.getText(),
+                e_date_of_birth.getText(),
+                e_zip_code.getText() );
+
+        datasource.updateContact(_id,
+                e_first_name.getText(), e_last_name.getText(),
+                e_date_of_birth.getText(),
+                e_zip_code.getText() );
+
         if (p_insOrupd.equals("Ins")) {
             datasource.LAST_ROW_NO = datasource.getLastLineNo();
         }
     }
 
+    // let both be able to delete
     public void onClickDel(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

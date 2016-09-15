@@ -178,6 +178,18 @@ android:orientation="horizontal" >
           android:text="@string/previous" />
 
         <View
+            android:layout_width="3dp"
+            android:layout_height="1dp"  />
+
+        <Button
+            android:id="@+id/previous"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:onClick="onClickSave"
+            android:text="@string/previous" />
+
+        <View
         android:layout_width="3dp"
         android:layout_height="1dp"  /> 
     <Button

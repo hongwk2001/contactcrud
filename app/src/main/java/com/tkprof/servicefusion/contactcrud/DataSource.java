@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.Editable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -80,7 +81,8 @@ public class DataSource {
 	         + " = ? ", ids);
 	  }
 
-  public void  saveLine(int cur_line_no, String p_content, String l_insOrupd){
+  public void updateContact(int cur_line_no, String p_content,
+							String l_insOrupd){
 
       if (l_insOrupd.equals("Ins")){
     	  cur_line_no = LAST_ROW_NO + 1;
@@ -181,5 +183,43 @@ public class DataSource {
 		// make sure to close the cursor
 		cursor.close();
 		return rows;
+	}
+
+	public void updateContact(int id, String first_name, String last_name,
+							  String date_of_birth, String zip_code) {
+
+		Log.i("datasource.saveLIne", id + " " + first_name) ;
+
+		String[] ids = { first_name,last_name,
+		                  date_of_birth, zip_code,  ""+id };
+
+		String sql;
+			sql = "update contacts " +
+					"set first_name = ?" +
+					"   last_name = ? " +
+					"   date_of_birth = ? " +
+					"   zip_code = ? " +
+					"where _no = ?";
+
+		database.execSQL(sql, ids);
+	}
+	public void insertContact(int id, String first_name, String last_name,
+							  String date_of_birth, String zip_code) {
+
+		Log.i("datasource.saveLIne", id + " " + first_name) ;
+
+		String[] ids = { first_name,last_name,
+				date_of_birth, zip_code,  ""+id };
+
+		String sql;
+
+			sql = "insert into contacts " +
+					" (first_name, last_name, " +
+					" date_of_birth, zip_code, _id)  " +
+					"values " +
+					"( ?, ?, " +
+					" ?, ? , ? ) ";
+
+		database.execSQL(sql, ids);
 	}
 }

@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="app_name">Read Repeat</string>
-    <string name="title_activity_main">Read for me, Repeat</string>
+    <string name="app_name">Contact CRUD - Service Fusion</string>
+    <string name="title_activity_main">Contact CRUD - Service Fusion</string>
     <string name="title_activity_setting">Setup and help</string>
     <string name="text2speach">Read Text</string>
     <string name="auto_text2speach">Auto TTS</string>

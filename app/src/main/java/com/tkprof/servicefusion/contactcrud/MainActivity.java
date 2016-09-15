@@ -1,7 +1,9 @@
 package com.tkprof.servicefusion.contactcrud;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -151,6 +153,30 @@ int _id;
         }
     }
 
+    // let both be able to delete
+    public void onClickDel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure to Delete?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener);
+        builder.show();
+    }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    datasource.deleteLine(_id);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
+
     @Override
     public void onDestroy() {
         savePref();
@@ -212,7 +238,8 @@ int _id;
         Log.d("MainActivity. ","position " + acmi.position + " no:" + _no );
 
         if(item.getTitle()=="delete"){
-            Toast.makeText(this, "Code for Delete", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Code for Delete", Toast.LENGTH_LONG).show();
+            onClickDel();
         }else   if(item.getTitle()=="edit"){
             Intent intent = new Intent(this, ContactDetailActivity.class);
             intent.putExtra("_id",  _no);
