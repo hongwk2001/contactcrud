@@ -111,10 +111,12 @@ public class DataSource {
 	String[] ids = {""+id};
 
 	Cursor cursor = database.rawQuery (
-	"select _no, Pum_no, Phase_no, Text1 " +
-	   " from content c " +
-	   "where c._no = ? " +
-	   "order by _no"
+			"select _id," +
+					" first_name, last_name,  " +
+					" date_of_birth, zip_code  " +
+					" from contacts  c " +
+					"where c._id = ? " +
+					"order by _id"
 		, ids );
 
 	cursor.moveToFirst();
@@ -124,49 +126,30 @@ public class DataSource {
 	cursor.close();
 	return eachRow;
   }
-  
 
-  public int getNewlineno(){ 
-	  String[] arg = {};  // no need
-	  
-	  Cursor cursor = database.rawQuery (
-	           "select max(_no) +1 from content c ", arg );
-	  
-	    int line_no = 0;
-	    boolean datafound = cursor.moveToFirst();
+
+	public int getLastLineNo(){
+		return getNewlineno() - 1;
+	}
+
+	public int getNewlineno(){
+		String [] arg = {};  // no need
+
+		Cursor cursor = database.rawQuery (
+				"select max(_no) +1 from content c ", arg );
+
+		int line_no = 0;
+		boolean datafound = cursor.moveToFirst();
 		if (datafound) {
-		    	line_no = cursor.getInt(0); 
-		 }
-		 // make sure to close the cursor
-		 cursor.close();
-		 return line_no;
-  }
-  
-  public int getLastLineNo(){  
-		 return getNewlineno() - 1;
-  }
-		  
-  public int getLineNoByPumNo(int pum_no){
-	  String[] pum_nos = {""+pum_no};
-	    
-	    Cursor cursor = database.rawQuery (
-          "select min(_no) " + 
-	           " from content c " +
-	           "where c.pum_no = ? "   
-	    		, pum_nos );
-       int line_no = 0;
-      boolean datafound = cursor.moveToFirst();
-	    if (datafound) {
-	    	line_no = cursor.getInt(0); 
-	    }
-	    // make sure to close the cursor
-	    cursor.close();
-	    return line_no;
-  }
+			line_no = cursor.getInt(0);
+		}
+		// make sure to close the cursor
+		cursor.close();
+		return line_no;
+	}
 
 
-  
-  private ContactRecord cursorToRow(Cursor cursor) {
+	private ContactRecord cursorToRow(Cursor cursor) {
 	  ContactRecord newrow = new ContactRecord();
 
 	  newrow.setKey(cursor.getInt(0));

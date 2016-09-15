@@ -206,14 +206,16 @@ int _id;
         AdapterView.AdapterContextMenuInfo acmi =  (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         ContactRecord obj = (ContactRecord) lv.getItemAtPosition(acmi.position);
 
-        Log.d("MainActivity. ","position" + acmi.position + " " + obj.getKey());
 
         int _no = obj.getKey() ;
+
+        Log.d("MainActivity. ","position " + acmi.position + " no:" + _no );
+
         if(item.getTitle()=="delete"){
             Toast.makeText(this, "Code for Delete", Toast.LENGTH_LONG).show();
         }else   if(item.getTitle()=="edit"){
             Intent intent = new Intent(this, ContactDetailActivity.class);
-            intent.putExtra("id",  _no);
+            intent.putExtra("_id",  _no);
             startActivity(intent);
         }else {
             return false;

@@ -70,7 +70,6 @@ public class ContactDetailActivity extends Activity
         e_date_of_birth = (EditText) findViewById(R.id.e_date_of_birth);
         e_zip_code  = (EditText) findViewById(R.id.e_zip_code);
 
-
         b_edit = (Button) findViewById(R.id.b_edit);
         b_new = (Button) findViewById(R.id.b_new);
 
@@ -79,29 +78,8 @@ public class ContactDetailActivity extends Activity
         datasource.open();
         if (locale == null) {
             locale = new Locale(datasource.getLocale());
-        }
-        ;
+        };
 
-        ttobj = new TextToSpeech(getApplicationContext(),
-                new TextToSpeech.OnInitListener() {
-                    @Override
-                    public void onInit(int status) {
-                        if (status != TextToSpeech.ERROR) {
-                            //  ttobj.setLanguage(Locale.getDefault());
-                            // ttobj.setLanguage(Locale.KOREAN);
-                            ttobj.setLanguage(locale);
-                        }
-                    }
-                });
-
-        ttobj.setOnUtteranceProgressListener(utteranceProgressListener);
-
-        datasource.LAST_ROW_NO = datasource.getLastLineNo();
-
-
-        //  TEST !!!!
-        //  curr_line_no = 1642;
-        // show !
         showContactDetail();
 
         mDetector = new GestureDetectorCompat(this, this);
@@ -138,8 +116,6 @@ public class ContactDetailActivity extends Activity
     String TAG = "MainActivity";
 
     public void showContactDetail() {
-
-        ttobj.stop();
 
         ContactRecord row1 = datasource.getContact(_id);
 
@@ -261,7 +237,7 @@ public class ContactDetailActivity extends Activity
                 case DialogInterface.BUTTON_POSITIVE:
                     //Yes button clicked
                     datasource.deleteLine(_id);
-                    datasource.LAST_ROW_NO = datasource.getLastLineNo();
+
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
