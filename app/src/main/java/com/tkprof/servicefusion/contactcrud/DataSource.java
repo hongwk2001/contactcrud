@@ -203,22 +203,24 @@ public class DataSource {
 
 		database.execSQL(sql, ids);
 	}
-	public void insertContact(int id, String first_name, String last_name,
+	public void insertContact(String first_name, String last_name,
 							  String date_of_birth, String zip_code) {
 
-		Log.i("datasource.saveLIne", id + " " + first_name) ;
+		Log.i("datasource.insContact",
+			"firstN:" + first_name + " Lname" + last_name
+		        + " dob:" + date_of_birth + " " + zip_code)
+		;
 
 		String[] ids = { first_name,last_name,
-				date_of_birth, zip_code,  ""+id };
+				date_of_birth, zip_code  };
 
 		String sql;
 
 			sql = "insert into contacts " +
 					" (first_name, last_name, " +
-					" date_of_birth, zip_code, _id)  " +
+					" date_of_birth, zip_code)  " +
 					"values " +
-					"( ?, ?, " +
-					" ?, ? , ? ) ";
+					"( ?, ?, ?, ? ) ";
 
 		database.execSQL(sql, ids);
 	}

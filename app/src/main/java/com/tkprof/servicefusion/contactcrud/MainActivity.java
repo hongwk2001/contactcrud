@@ -52,7 +52,8 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-int _id;
+    int _id;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,7 @@ int _id;
         datasource = new DataSource(this);
         datasource.open();
 
-        List<ContactRecord> values = datasource.getContacts()  ;
+        List<ContactRecord> values = datasource.getContacts();
 
         DataArrayAdapter adapter = new DataArrayAdapter(this, values);
         setListAdapter(adapter);
@@ -80,7 +81,8 @@ int _id;
 
         if (locale == null) {
             locale = new Locale(datasource.getLocale());
-        };
+        }
+        ;
 
         ttobj = new TextToSpeech(getApplicationContext(),
                 new TextToSpeech.OnInitListener() {
@@ -104,7 +106,7 @@ int _id;
     UtteranceProgressListener utteranceProgressListener = new UtteranceProgressListener() {
         @Override
         public void onStart(String utteranceId) {
-           Log.d(TAG + ".", "onStart ( utteranceId :" + utteranceId + " ) ");
+            Log.d(TAG + ".", "onStart ( utteranceId :" + utteranceId + " ) ");
         }
 
         @Override
@@ -217,8 +219,7 @@ int _id;
 
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Select The Action");
         menu.add(0, v.getId(), 0, "edit");//groupId, itemId, order, title
@@ -226,28 +227,33 @@ int _id;
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onContextItemSelected(MenuItem item) {
         ListView lv = (ListView) this.getListView();
 
-        AdapterView.AdapterContextMenuInfo acmi =  (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         ContactRecord obj = (ContactRecord) lv.getItemAtPosition(acmi.position);
 
 
-        int _no = obj.getKey() ;
+        int _no = obj.getKey();
 
-        Log.d("MainActivity. ","position " + acmi.position + " no:" + _no );
+        Log.d("MainActivity. ", "position " + acmi.position + " no:" + _no);
 
-        if(item.getTitle()=="delete"){
+        if (item.getTitle() == "delete") {
             //Toast.makeText(this, "Code for Delete", Toast.LENGTH_LONG).show();
             onClickDel();
-        }else   if(item.getTitle()=="edit"){
+        } else if (item.getTitle() == "edit") {
             Intent intent = new Intent(this, ContactDetailActivity.class);
-            intent.putExtra("_id",  _no);
+            intent.putExtra("_id", _no);
             startActivity(intent);
-        }else {
+        } else {
             return false;
         }
         return true;
+    }
+
+    public void onClickNew(View view) {
+        Intent intent = new Intent(this, ContactDetailActivity.class);
+        startActivity(intent);
     }
 
     @Override

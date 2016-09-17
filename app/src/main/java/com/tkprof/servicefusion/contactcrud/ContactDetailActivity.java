@@ -40,8 +40,9 @@ public class ContactDetailActivity extends Activity
     ToggleButton tgb_start;
     Button  b_edit, b_new;
 
- int _id;
+    int _id;
     String first_name, last_name, date_of_birth, zip_code ;
+    boolean isIdReceivedWhenOpen = false;
     Map<Integer, String> pums;
     TextToSpeech ttobj;
     Locale locale;
@@ -61,6 +62,7 @@ public class ContactDetailActivity extends Activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             _id = extras.getInt("_id");
+            isIdReceivedWhenOpen = true;
         }
 
         sharedPref = getSharedPreferences("contactcrud", Context.MODE_PRIVATE);
@@ -73,14 +75,17 @@ public class ContactDetailActivity extends Activity
         b_edit = (Button) findViewById(R.id.b_edit);
         b_new = (Button) findViewById(R.id.b_new);
 
+        if (isIdReceivedWhenOpen) {
 
-        datasource = new DataSource(this);
-        datasource.open();
-        if (locale == null) {
-            locale = new Locale(datasource.getLocale());
-        };
+            datasource = new DataSource(this);
+            datasource.open();
+            if (locale == null) {
+                locale = new Locale(datasource.getLocale());
+            }
+            ;
 
-        showContactDetail();
+            showContactDetail();
+        }
 
         mDetector = new GestureDetectorCompat(this, this);
         mDetector.setOnDoubleTapListener(this);
@@ -194,14 +199,11 @@ public class ContactDetailActivity extends Activity
 */
 
 /*
-
     public void pause() {
-
         if (ct != null) {
             ct.cancel();
             ct = null;
         }
-
         if (ct_remain != null) {
             ct_remain.cancel();
             ct_remain = null;
@@ -214,21 +216,23 @@ public class ContactDetailActivity extends Activity
     //TODO
     public void onClickSave(View view) {
 
-        if (l_insOrupd.equals("Ins")){
-            cur_line_no = LAST_ROW_NO + 1;
-        }
+        if( isIdReceivedWhenOpen ) {
 
-        datasource.insertContact(_id,
-                 e_first_name.getText(), e_last_name.getText(),
-                e_date_of_birth.getText(),
-                e_zip_code.getText() );
+            datasource.updateContact(_id,
+                    e_first_name.getText().toString(),
+                    e_last_name.getText().toString(),
+                    e_date_of_birth.getText().toString(),
+                    e_zip_code.getText().toString());
+        } else {
+            if ( e_first_name == null ) {
+                Log.d("onclickSave", "e_first_name is NULL" ) ;
+            }
+            datasource.insertContact(
+                    e_first_name.getText().toString(),
+                    e_last_name.getText().toString(),
+                    e_date_of_birth.getText().toString(),
+                    e_zip_code.getText().toString());
 
-        datasource.updateContact(_id,
-                e_first_name.getText(), e_last_name.getText(),
-                e_date_of_birth.getText(),
-                e_zip_code.getText() );
-
-        if (p_insOrupd.equals("Ins")) {
             datasource.LAST_ROW_NO = datasource.getLastLineNo();
         }
     }
