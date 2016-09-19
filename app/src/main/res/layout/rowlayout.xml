@@ -4,22 +4,24 @@
     android:layout_height="wrap_content"
     android:gravity="fill_horizontal"
     android:orientation="horizontal" >
- 
-             <TextView 
+
+             <TextView
                  android:id="@+id/tv_datetime"
                  android:layout_width="wrap_content"
-                 android:layout_height="wrap_content" 
+                 android:layout_height="wrap_content"
                  android:layout_margin="3dp"
-                android:text="@+id/tv_datetime" /> 
+                android:text="@+id/tv_datetime" />
+
                 <View
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_weight="1" >
     </View>
+
              <TextView
                  android:id="@+id/tv_att_avg"
                  android:layout_width="wrap_content"
-                 android:layout_height="wrap_content" 
+                 android:layout_height="wrap_content"
                  android:layout_margin="3dp"
                  android:textColor="#C83200"
                 android:text="@+id/tv_att_avg" />
@@ -31,7 +33,7 @@
             <TextView
                 android:id="@+id/tv_med_avg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"  
+                android:layout_height="wrap_content"
                 android:layout_margin="3dp" android:textColor="#5AFA00"
                 android:text="+id/tv_med_avg" />
  <View
@@ -43,22 +45,12 @@
                 android:id="@+id/tv_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp" android:textColor="#FFFA00" 
+                android:layout_margin="3dp" android:textColor="#FFFA00"
                 android:text="+id/tv_minutes" />
  <View
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_weight="1" >
     </View>
-            <TextView
-                android:id="@+id/tv_best_med"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:layout_margin="3dp" android:textColor ="#98FB98"
-                android:text="+id/tv_best_med" />
-  <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="1" >
-    </View>
+
 </LinearLayout> 

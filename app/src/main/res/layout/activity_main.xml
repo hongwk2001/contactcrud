@@ -4,13 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
         android:id="@+id/b_new"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal|top"
         android:onClick="onClickNew"
         android:text="@string/new1" />
+
+        <Button
+            android:id="@+id/b_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal|top"
+            android:onClick="onClickRefresh"
+            android:text="@string/refresh" />
+    </LinearLayout>
+
+
 
     <ListView
         android:id="@android:id/list"

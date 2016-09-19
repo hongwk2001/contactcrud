@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.text.Editable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -81,31 +80,6 @@ public class DataSource {
 	         + " = ? ", ids);
 	  }
 
-  public void updateContact(int cur_line_no, String p_content,
-							String l_insOrupd){
-
-      if (l_insOrupd.equals("Ins")){
-    	  cur_line_no = LAST_ROW_NO + 1;
-      }
-	  
-	  Log.i("datasource.saveLIne", cur_line_no + " " + p_content) ;
-	  
-	    String[] ids = {  p_content, ""+cur_line_no };
-
-
-	    String sql;
-        if (l_insOrupd.equals("Upd")){
-          sql = "update contacts set text1 = ?" +
-        		"where  _no = ?";
-        }else{
-        	sql = "insert into contacts " +
-        			" ( text1, _no)  " +
-        			"values ( ? , ? ) ";
-        }
-        		
-		database.execSQL(sql, ids);
-  }
-  
   // id as search condition.
   public ContactRecord  getContact(int id ) {
 	ContactRecord row = new ContactRecord();
@@ -138,7 +112,7 @@ public class DataSource {
 		String [] arg = {};  // no need
 
 		Cursor cursor = database.rawQuery (
-				"select max(_no) +1 from content c ", arg );
+				"select max(_id) +1 from contacts c ", arg );
 
 		int line_no = 0;
 		boolean datafound = cursor.moveToFirst();
@@ -195,11 +169,11 @@ public class DataSource {
 
 		String sql;
 			sql = "update contacts " +
-					"set first_name = ?" +
-					"   last_name = ? " +
-					"   date_of_birth = ? " +
+					"set first_name = ? ," +
+					"   last_name = ?  ," +
+					"   date_of_birth = ? ," +
 					"   zip_code = ? " +
-					"where _no = ?";
+					"where _id = ?";
 
 		database.execSQL(sql, ids);
 	}

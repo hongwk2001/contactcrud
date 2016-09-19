@@ -74,17 +74,14 @@ public class ContactDetailActivity extends Activity
 
         b_edit = (Button) findViewById(R.id.b_edit);
         b_new = (Button) findViewById(R.id.b_new);
+        datasource = new DataSource(this);
+        datasource.open();
+        if (locale == null) {
+            locale = new Locale(datasource.getLocale());
+        };
 
         if (isIdReceivedWhenOpen) {
-
-            datasource = new DataSource(this);
-            datasource.open();
-            if (locale == null) {
-                locale = new Locale(datasource.getLocale());
-            }
-            ;
-
-            showContactDetail();
+           showContactDetail();
         }
 
         mDetector = new GestureDetectorCompat(this, this);
@@ -224,8 +221,8 @@ public class ContactDetailActivity extends Activity
                     e_date_of_birth.getText().toString(),
                     e_zip_code.getText().toString());
         } else {
-            if ( e_first_name == null ) {
-                Log.d("onclickSave", "e_first_name is NULL" ) ;
+            if ( e_zip_code.getText() == null ) {
+                Log.d("onclickSave", "e_zip_code.getText() is NULL" ) ;
             }
             datasource.insertContact(
                     e_first_name.getText().toString(),

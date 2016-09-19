@@ -19,7 +19,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -54,13 +53,14 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     private GoogleApiClient client;
     int _id;
 
+    DataArrayAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setTheme(android.R.style.Theme_Holo_Light);
         setContentView(R.layout.activity_main);
-
 
         sharedPref = getSharedPreferences("ReadRepeat", Context.MODE_PRIVATE);
 
@@ -71,7 +71,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
 
         List<ContactRecord> values = datasource.getContacts();
 
-        DataArrayAdapter adapter = new DataArrayAdapter(this, values);
+        adapter = new DataArrayAdapter(this, values);
         setListAdapter(adapter);
 
         registerForContextMenu(this.getListView());
@@ -254,6 +254,18 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     public void onClickNew(View view) {
         Intent intent = new Intent(this, ContactDetailActivity.class);
         startActivity(intent);
+    }
+
+    public void onClickRefresh(View view) {
+        Log.d("Main.onClickRefresh", "called");
+
+        adapter.clear();
+
+        List<ContactRecord> values = datasource.getContacts();
+        adapter = new DataArrayAdapter(this, values);
+
+        setListAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

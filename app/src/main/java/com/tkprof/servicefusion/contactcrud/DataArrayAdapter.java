@@ -26,6 +26,7 @@ public class DataArrayAdapter extends ArrayAdapter<ContactRecord> {
 	    this.values = values;
 	  }
 
+
 	  @Override
 	  public View getView(int position, View convertView, ViewGroup parent) {
 	     View rowView = convertView;
