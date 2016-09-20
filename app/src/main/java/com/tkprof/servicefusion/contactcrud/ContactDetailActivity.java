@@ -134,20 +134,6 @@ public class ContactDetailActivity extends Activity
 
     }
 
-    private static final int SETTING_ACTIVITY = 10;
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == SETTING_ACTIVITY) {
-            if (data.hasExtra("returnKey1") &&
-                    data.getExtras().getString("returnKey1").equals("Saved")) {
-        /*Toast.makeText(this, data.getExtras().getString("returnKey1"),
-            Toast.LENGTH_SHORT).show();*/
-
-            }
-        }
-    }
-
     @Override
     public void onDestroy() {
       //  savePref();
@@ -358,6 +344,15 @@ public class ContactDetailActivity extends Activity
 
     @Override
     public void onStop() {
+
+        Toast.makeText(this, "Contact DEtail OnStop calle",
+                Toast.LENGTH_SHORT).show();
+
+        Intent data = new Intent();
+        data.putExtra("returnKey1", "saved");
+        setResult(RESULT_OK, data);
+        finish();
+
         super.onStop();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.

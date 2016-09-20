@@ -18,7 +18,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -46,6 +48,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
 
     TextToSpeech ttobj;
     Locale locale;
+    Button b_new ;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -101,6 +104,8 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        b_new = (Button) findViewById(R.id.b_new);
     }
 
     UtteranceProgressListener utteranceProgressListener = new UtteranceProgressListener() {
@@ -123,6 +128,8 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
     String TAG = "MainActivity";
 
     private static final int SETTING_ACTIVITY = 10;
+    private static final int CONTACT_DETAIL_ACTIVITY = 101;
+
 
 	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -143,17 +150,7 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
 	    }
 	} */
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == SETTING_ACTIVITY) {
-            if (data.hasExtra("returnKey1") &&
-                    data.getExtras().getString("returnKey1").equals("Saved")) {
-        /*Toast.makeText(this, data.getExtras().getString("returnKey1"),
-            Toast.LENGTH_SHORT).show();*/
-                restorePref();
-            }
-        }
-    }
+
 
     // let both be able to delete
     public void onClickDel() {
@@ -233,7 +230,6 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         ContactRecord obj = (ContactRecord) lv.getItemAtPosition(acmi.position);
 
-
         int _no = obj.getKey();
 
         Log.d("MainActivity. ", "position " + acmi.position + " no:" + _no);
@@ -244,11 +240,36 @@ public class MainActivity extends ListActivity implements GestureDetector.OnGest
         } else if (item.getTitle() == "edit") {
             Intent intent = new Intent(this, ContactDetailActivity.class);
             intent.putExtra("_id", _no);
-            startActivity(intent);
+            startActivityForResult(intent, CONTACT_DETAIL_ACTIVITY);
+
+            return true;
+
         } else {
             return false;
         }
         return true;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        Toast.makeText(this,"requestCode:" + requestCode + "resultCode:" + resultCode,
+                Toast.LENGTH_SHORT).show();
+
+
+        if ( requestCode == CONTACT_DETAIL_ACTIVITY) {
+            if (resultCode == RESULT_OK ) {
+            if (data.hasExtra("returnKey1") &&
+                data.getExtras().getString("returnKey1").equals("Saved")) {
+               onClickRefresh(b_new);
+            }}
+
+            Toast.makeText(this, "resultCode:" + resultCode,
+                    Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public void onClickNew(View view) {
